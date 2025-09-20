@@ -8,10 +8,10 @@
   "main": "servidor.js",
   "scripts": {
     "tests": "mocha 'tests/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-rest-external": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-rest-controller": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-graphql-external": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-graphql-controller": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test-rest-external": "mocha 'tests/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test-rest-controller": "mocha 'tests/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test-graphql-external": "mocha 'tests/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test-graphql-controller": "mocha 'tests/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "start-api": "node --watch src/server.js"
   },
   "imports": {

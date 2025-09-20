@@ -34,9 +34,10 @@ export class RestProductController extends Controller {
       productNew.price = req.body.price
       productNew.description = req.body.description
 
-      this.productService.create(productNew)
+      const product = this.productService.create(productNew)
       res.status(StatusCodes.CREATED).json({
-        message : 'Product created'
+        message : 'Product created',
+        data: product
       })
     } catch (err) {
       res.status(StatusCodes.BAD_REQUEST).json({ error: err.message })

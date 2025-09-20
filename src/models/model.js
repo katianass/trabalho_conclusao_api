@@ -6,7 +6,10 @@ export class Model {
 
   create(item) {
     const id = this.currentId++
-    const record = { id, ...item }
+    const record = { 
+      ...item ,
+      id, 
+    }
     this.data.set(id, record)
 
     return record

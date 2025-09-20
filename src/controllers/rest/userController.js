@@ -55,9 +55,10 @@ export class RestUserController extends Controller {
       userNew.phone = phone
       userNew.password = hashedPassword
 
-      this.userService.create(userNew)
+      const user = this.userService.create(userNew)
       res.status(StatusCodes.CREATED).json({
-        message : 'User created'
+        message : 'User created',
+        data: user
       })
     } catch (err) {
       res.status(StatusCodes.BAD_REQUEST).json({ error: err.message })

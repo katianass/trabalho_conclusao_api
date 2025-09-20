@@ -161,8 +161,18 @@ describe('Teste Show User', () => {
     })
 
     it('Valida recuperar user com sucesso', async () => {
+        const response = await request(app)
+            .post('/api/rest/users')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send({
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({ length: 10 }),
+                phone: faker.phone.number()
+            })
+
         const respUserShow = await request(app)
-            .get('/api/rest/users/1')
+            .get(`/api/rest/users/${response.body.data.id}`)
             .set('Authorization', `Bearer ${userToken}`)
             .send()
 
@@ -210,8 +220,18 @@ describe('Teste Update User', () => {
     })
 
     it('Valida atualização com sucesso', async () => {
+        const response = await request(app)
+            .post('/api/rest/users')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send({
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({ length: 10 }),
+                phone: faker.phone.number()
+            })
+
         const respUserUpdate = await request(app)
-            .put('/api/rest/users/1')
+            .put(`/api/rest/users/${response.body.data.id}`)
             .set('Authorization', `Bearer ${userToken}`)
             .send({
                 name: faker.person.fullName(),
@@ -259,8 +279,18 @@ describe('Teste Delete User', () => {
     })
 
     it('Valida delete com sucesso', async () => {
+        const response = await request(app)
+            .post('/api/rest/users')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send({
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({ length: 10 }),
+                phone: faker.phone.number()
+            })
+
         const respUserDelete = await request(app)
-            .delete('/api/rest/users/1')
+            .delete(`/api/rest/users/${response.body.data.id}`)
             .set('Authorization', `Bearer ${userToken}`)
             .send()
 

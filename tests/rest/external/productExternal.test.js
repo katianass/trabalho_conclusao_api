@@ -115,13 +115,13 @@ describe('Teste Show Product', () => {
             description: "Description Product delete succes"
         }
 
-        await request(app)
+        const responseProduct = await request(app)
             .post('/api/rest/products')
             .set('Authorization', `Bearer ${userToken}`)
             .send(productNew)
 
         const response = await request(app)
-            .get('/api/rest/products/1')
+            .get(`/api/rest/products/${responseProduct.body.data.id}`)
             .set('Authorization', `Bearer ${userToken}`)
             .send()
 
@@ -136,7 +136,7 @@ describe('Teste Show Product', () => {
 
 describe('Teste Delete Product', () => {
     it('Valida delete com sucesso', async () => {
-        await request(app)
+        const responseProduct = await request(app)
             .post('/api/rest/products')
             .set('Authorization', `Bearer ${userToken}`)
             .send({
@@ -146,7 +146,7 @@ describe('Teste Delete Product', () => {
             })
 
         const response = await request(app)
-            .delete('/api/rest/products/1')
+            .delete(`/api/rest/products/${responseProduct.body.data.id}`)
             .set('Authorization', `Bearer ${userToken}`)
             .send()
 
