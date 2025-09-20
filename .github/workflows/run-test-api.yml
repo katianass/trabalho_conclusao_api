@@ -19,7 +19,7 @@ jobs:
         node-version: '24.x'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --loglevel=error
 
     - name: Rodar os testes de API REST e GraphQL
       run: npm run tests

@@ -1,8 +1,9 @@
 import request from 'supertest'
-import { expect, assert, should, use } from 'chai'
+import { expect, use } from 'chai'
 import chaiExclude from "chai-exclude"
 import { StatusCodes } from "http-status-codes"
 import { faker } from '@faker-js/faker'
+import { getTokenUser } from './utils.js'
 
 import app from '#app/app.js'
 
@@ -12,27 +13,7 @@ let userToken = null;
 
 describe('Teste Create User', () => {
     before(async () => {
-        // Cria um user para autenticar
-        const userLogin = {
-            name: faker.person.fullName(),
-            email: faker.internet.email(),
-            password: faker.internet.password({ length: 10 }),
-            phone: faker.phone.number(),
-        }
-
-        await request(app)
-            .post('/api/rest/auth/register')
-            .send(userLogin)
-
-        // Autentica e seta o token na variavel global 'userToken'
-        const respLogin = await request(app)
-            .post('/api/rest/auth/login')
-            .send({
-                email: userLogin.email,
-                password: userLogin.password
-            })
-
-        userToken = respLogin.body.token
+        userToken = await getTokenUser()
     })
     // beforeEach()
 
@@ -111,74 +92,178 @@ describe('Teste Create User', () => {
     })
 })
 
-// describe('Teste List User', () => {
-//     // before()
-//     // beforeEach()
-
-//     it('Valida que error de não autenticado', async () => {
-
-//     })
-
-//     it('Valida campos obrigatorios', async () => {
-
-//     })
-
-//     it('Valida cadastro com sucesso', async () => {
-
-//     })
-// })
-
-// describe('Teste Show User', () => {
-//     // before()
-//     // beforeEach()
-
-//     it('Valida que error de não autenticado', async () => {
-
-//     })
-
-//     it('Valida campos obrigatorios', async () => {
-
-//     })
-
-//     it('Valida cadastro com sucesso', async () => {
-
-//     })
-// })
-
-// describe('Teste Update User', () => {
-//     // before()
-//     // beforeEach()
-
-//     it('Valida que error de não autenticado', async () => {
-
-//     })
-
-//     it('Valida campos obrigatorios', async () => {
-
-//     })
-
-//     it('Valida cadastro com sucesso', async () => {
-
-//     })
-// })
-
-describe('Teste Delete User', () => {
-    // before()
-    // beforeEach()
+describe('Teste List User', () => {
+    before(async () => {
+        userToken = await getTokenUser()
+    })
 
     it('Valida error de não autenticado/token não existente', async () => {
+        const respUserList = await request(app)
+            .get('/api/rest/users')
+            .send()
 
+        expect(respUserList.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserList.body.error).to.equal('Token not found')
     })
 
     it('Valida error de token invalido', async () => {
-        
+        const respUserList = await request(app)
+            .get('/api/rest/users')
+            .set('Authorization', `Bearer meu-token-invalido`)
+            .send()
+
+        expect(respUserList.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserList.body.error).to.equal('Token invalid')
+    })
+
+    it('Valida listagem com sucesso', async () => {
+        const respUserList = await request(app)
+            .get('/api/rest/users')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send()
+
+        expect(respUserList.statusCode).to.equal(StatusCodes.OK)
+    })
+})
+
+describe('Teste Show User', () => {
+    before(async () => {
+        userToken = await getTokenUser()
+    })
+
+    it('Valida error de não autenticado/token não existente', async () => {
+        const respUserShow = await request(app)
+            .get('/api/rest/users/1')
+            .send()
+
+        expect(respUserShow.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserShow.body.error).to.equal('Token not found')
+    })
+
+    it('Valida error de token invalido', async () => {
+        const respUserShow = await request(app)
+            .get('/api/rest/users/1')
+            .set('Authorization', `Bearer meu-token-invalido`)
+            .send()
+
+        expect(respUserShow.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserShow.body.error).to.equal('Token invalid')
     })
 
     it('Valida usuario não encontrado', async () => {
+        const respUserShow = await request(app)
+            .get('/api/rest/users/9999')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send()
 
+        expect(respUserShow.statusCode).to.equal(StatusCodes.NOT_FOUND)
+        expect(respUserShow.body.error).to.equal('User not found')
+    })
+
+    it('Valida recuperar user com sucesso', async () => {
+        const respUserShow = await request(app)
+            .get('/api/rest/users/1')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send()
+
+        expect(respUserShow.statusCode).to.equal(StatusCodes.OK)
+    })
+})
+
+describe('Teste Update User', () => {
+    before(async () => {
+        userToken = await getTokenUser()
+    })
+
+    it('Valida error de não autenticado/token não existente', async () => {
+        const respUserUpdate = await request(app)
+            .put('/api/rest/users/1')
+            .send()
+
+        expect(respUserUpdate.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserUpdate.body.error).to.equal('Token not found')
+    })
+
+    it('Valida error de token invalido', async () => {
+        const respUserUpdate = await request(app)
+            .put('/api/rest/users/1')
+            .set('Authorization', `Bearer meu-token-invalido`)
+            .send()
+
+        expect(respUserUpdate.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserUpdate.body.error).to.equal('Token invalid')
+    })
+
+    it('Valida usuario não encontrado', async () => {
+        const respUserUpdate = await request(app)
+            .put('/api/rest/users/9999')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send({
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({ length: 10 }),
+                phone: faker.phone.number(),
+            })
+
+        expect(respUserUpdate.statusCode).to.equal(StatusCodes.NOT_FOUND)
+        expect(respUserUpdate.body.error).to.equal('User not found')
+    })
+
+    it('Valida atualização com sucesso', async () => {
+        const respUserUpdate = await request(app)
+            .put('/api/rest/users/1')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send({
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({ length: 10 }),
+                phone: faker.phone.number(),
+            })
+
+        expect(respUserUpdate.statusCode).to.equal(StatusCodes.OK)
+    })
+})
+
+describe('Teste Delete User', () => {
+    before(async () => {
+        userToken = await getTokenUser()
+    })
+
+    it('Valida error de não autenticado/token não existente', async () => {
+        const respUserDelete = await request(app)
+            .delete('/api/rest/users/1')
+            .send()
+
+        expect(respUserDelete.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserDelete.body.error).to.equal('Token not found')
+    })
+
+    it('Valida error de token invalido', async () => {
+        const respUserDelete = await request(app)
+            .delete('/api/rest/users/1')
+            .set('Authorization', `Bearer meu-token-invalido`)
+            .send()
+
+        expect(respUserDelete.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
+        expect(respUserDelete.body.error).to.equal('Token invalid')
+    })
+
+    it('Valida usuario não encontrado', async () => {
+        const respUserDelete = await request(app)
+            .delete('/api/rest/users/9999')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send()
+
+        expect(respUserDelete.statusCode).to.equal(StatusCodes.NOT_FOUND)
+        expect(respUserDelete.body.error).to.equal('User not found')
     })
 
     it('Valida delete com sucesso', async () => {
+        const respUserDelete = await request(app)
+            .delete('/api/rest/users/1')
+            .set('Authorization', `Bearer ${userToken}`)
+            .send()
 
+        expect(respUserDelete.statusCode).to.equal(StatusCodes.NO_CONTENT)
     })
 })

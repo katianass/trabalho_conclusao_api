@@ -27,7 +27,6 @@ import typeDefs from "#controllers/graphql/schema.js"
 
 import graphqlAuthMiddleware from '#middlewares/graphqlAuthMiddleware.js'
 
-
 const app = express()
 const router = express.Router()
 app.use(cors())
