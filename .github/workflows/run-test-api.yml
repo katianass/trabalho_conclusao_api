@@ -1,0 +1,25 @@
+name: Run Test API - CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  run-test-api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Install Node.js 24.x
+      uses: actions/setup-node@v5
+      with:
+        node-version: '24.x'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Rodar os testes de API REST e GraphQL
+      run: npm run tests
