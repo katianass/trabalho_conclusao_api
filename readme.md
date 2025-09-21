@@ -99,9 +99,3 @@ API do GraphQL e acesse a URL `http://localhost:3000/api/graphql` para acessá-l
 - Caso não seja informado token retorna que o token não existe
 - Caso o token infomado seja invalido retorna que o token é invalido
 
-# Referencias
-- [Video Youtube sobre Sinon](https://www.youtube.com/watch?v=rXoh6ZFUg-E)
-- [Video Youtube sobre GraphQL](https://www.youtube.com/watch?v=-6YWAgOr9N4)
-- [Video Youtube sobre GraphQL Estudos](https://www.youtube.com/watch?v=1dz48pReq_c)
-- [Video Youtube sobre API Rest com Express](https://www.youtube.com/watch?v=ycIxWTEI908)
-- [Video Youtube sobre API Rest](https://www.youtube.com/watch?v=hHM-hr9q4mo)
