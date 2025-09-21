@@ -72,9 +72,17 @@ export class RestAuthController extends Controller {
       newUser.email = email
       newUser.phone = phone
       newUser.password = hashedPassword
-      this.userService.create(newUser)
+      const user = this.userService.create(newUser)
 
-      res.status(StatusCodes.CREATED).json({ message: 'User registered successfully!' })
+      res.status(StatusCodes.CREATED).json({ 
+        message: 'User registered successfully!',
+        data: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+        }
+      })
     } catch (error) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         error: 'Erro user registered',
