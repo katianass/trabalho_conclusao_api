@@ -1,15 +1,17 @@
 # Projeto Testes em API REST e GraphQL
 
-Projeto de API Rest e GraphQL, com funcionalidade de registrar login, manipulação do usuarios (CRUD), fluxo de produtos tambem (CRUD), disponibilizadas com os dois tipos de API Rest e GraphQL, em apenas um projeto nodejs
+Projeto de API Rest e GraphQL, com funcionalidade de registrar login, manipulação do usuarios (CRUD), fluxo de produtos tambem (CRUD), as rotas estão disponibilizadas com os dois tipos de API Rest e GraphQL, em apenas um projeto nodejs
 
 ## Tecnologias
 - Node.js
-- Express
-- Banco de dados em memória (variáveis)
+- Express e Express Validator
+- Http Status
+- Faker (Gerar dados faker)
 - Mocha
 - Chai
 - Supertest
-- Sinon
+- Sinon (para mockar metodos)
+- Banco de dados em memória (usando Map)
 
 ## Instalação
 
@@ -31,7 +33,7 @@ Exemplo:
 const jwt = process.env.API_JWT_SECRET || 'token-exemplo'
 const port = process.env.API_PORT || 3000
 ```
-Mas voce pode criar um arquivo .env dentro da pasta /src/.env que irá reconhecer o novo valor.
+Mas é possivel criar um arquivo .env dentro da pasta /src/.env que irá reconhecer os novos valores.
 
 ## Como rodar
 
