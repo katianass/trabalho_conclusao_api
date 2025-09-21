@@ -7,11 +7,11 @@
   "type": "module",
   "main": "servidor.js",
   "scripts": {
-    "tests": "mocha 'tests/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-rest-external": "mocha 'tests/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-rest-controller": "mocha 'tests/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-graphql-external": "mocha 'tests/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-graphql-controller": "mocha 'tests/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "tests": "mocha \"tests/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+    "test-rest-external": "mocha \"tests/rest/external/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+    "test-rest-controller": "mocha \"tests/rest/controller/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+    "test-graphql-external": "mocha \"tests/graphql/external/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+    "test-graphql-controller": "mocha \"tests/graphql/controller/**/*.test.js\" --timeout 10000 --reporter mochawesome",
     "start-api": "node --watch src/server.js"
   },
   "imports": {
@@ -23,8 +23,8 @@
     "#app/*": "./src/*"
   },
   "engines": {
-    "node": "24.8.0",
-    "npm": "11.6.0"
+    "node": "22.14.0",
+    "npm": "10.9.2"
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
