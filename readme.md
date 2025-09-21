@@ -45,11 +45,11 @@ Mas é possivel criar um arquivo .env dentro da pasta /src/.env que irá reconhe
 ## Endpoints principais
 
 ### Registro de usuário
-- `POST /api/rest/register`
+- `POST /api/rest/auth/register`
   - Body: `{ "name": "string", "email": "string", "password": "string", "phone": "string" }`
 
 ### Login
-- `POST /api/rest/login`
+- `POST /api/rest/auth/login`
   - Body: `{ "email": "string", "password": "string" }`
 
 ### Listar usuários
