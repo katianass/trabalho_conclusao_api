@@ -11,7 +11,7 @@ use(chaiExclude)
 
 let userToken = null;
 
-describe('Teste Create User', () => {
+describe('Teste REST - Create User', () => {
     before(async () => {
         userToken = await getTokenUser()
     })
@@ -92,7 +92,7 @@ describe('Teste Create User', () => {
     })
 })
 
-describe('Teste List User', () => {
+describe('Teste REST - List User', () => {
     before(async () => {
         userToken = await getTokenUser()
     })
@@ -126,7 +126,7 @@ describe('Teste List User', () => {
     })
 })
 
-describe('Teste Show User', () => {
+describe('Teste REST - Show User', () => {
     before(async () => {
         userToken = await getTokenUser()
     })
@@ -180,7 +180,7 @@ describe('Teste Show User', () => {
     })
 })
 
-describe('Teste Update User', () => {
+describe('Teste REST - Update User', () => {
     before(async () => {
         userToken = await getTokenUser()
     })
@@ -244,7 +244,7 @@ describe('Teste Update User', () => {
     })
 })
 
-describe('Teste Delete User', () => {
+describe('Teste REST - Delete User', () => {
     before(async () => {
         userToken = await getTokenUser()
     })

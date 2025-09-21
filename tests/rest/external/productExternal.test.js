@@ -17,7 +17,7 @@ let userToken = await getTokenUser()
 // TODO GET products/:id
 // TODO PUT products/:id
 // TODO DELETE products/:id
-describe('Teste autenticação/token todas rotas products', () => {
+describe('Teste REST - autenticação/token todas rotas products', () => {
     it('POST /api/rest/products - create products', async () => {
         let response = await request(app).post('/api/rest/products').send()
         expect(response.statusCode).to.equal(StatusCodes.UNAUTHORIZED)
@@ -69,7 +69,7 @@ describe('Teste autenticação/token todas rotas products', () => {
     })
 })
 
-describe('Teste products not found', () => {
+describe('Teste REST - products not found', () => {
     it('GET /api/rest/products/:id - show products', async () => {
         const response = await request(app).get('/api/rest/products/999').set('Authorization', `Bearer ${userToken}`).send()
         expect(response.statusCode).to.equal(StatusCodes.NOT_FOUND)
@@ -96,7 +96,7 @@ describe('Teste products not found', () => {
     })
 })
 
-describe('Teste List Product', () => {
+describe('Teste REST - List Product', () => {
     it('Valida listagem com sucesso', async () => {
         const response = await request(app)
             .get('/api/rest/products')
@@ -107,7 +107,7 @@ describe('Teste List Product', () => {
     })
 })
 
-describe('Teste Show Product', () => {
+describe('Teste REST - Show Product', () => {
     it('Valida recupera produto com sucesso', async () => {
         const productNew = {
             name: "Product delete success",
@@ -134,7 +134,7 @@ describe('Teste Show Product', () => {
     })
 })
 
-describe('Teste Delete Product', () => {
+describe('Teste REST - Delete Product', () => {
     it('Valida delete com sucesso', async () => {
         const responseProduct = await request(app)
             .post('/api/rest/products')

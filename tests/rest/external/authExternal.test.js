@@ -14,7 +14,7 @@ const massaDadosUserRegister = {
     "phone": "6299990000"
 }
 
-describe('Teste registrando usuario para autenticação', () => {
+describe('Teste REST - registrando usuario para autenticação', () => {
     it('Valida campos obrigatorios POST /api/rest/auth/register', async () => {
         const respRegister = await request(app)
             .post('/api/rest/auth/register')
@@ -60,7 +60,7 @@ describe('Teste registrando usuario para autenticação', () => {
     })
 })
 
-describe('Teste login', () => {
+describe('Teste REST - login', () => {
     it('Valida campos obrigatorios POST /api/rest/auth/login', async () => {
         const respLogin = await request(app)
             .post('/api/rest/auth/login')

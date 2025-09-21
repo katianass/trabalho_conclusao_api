@@ -8,7 +8,7 @@ import { UserService } from "#services/userService.js"
 import app from '#app/app.js'
 import { userRegisterDataRequest, userRegisterResponse} from './sinon-mock/register.mock.js'
 
-describe('Validando controller com mock no service', () => {
+describe('Teste com Sinon - Validando controller com mock no service', () => {
     let userServiceCreateMock;
     let userServiceCreateEmailDuplicateMock;
     
