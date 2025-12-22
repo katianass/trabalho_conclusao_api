@@ -1,49 +1,56 @@
 {
-  "name": "api-katiana",
-  "version": "1.0.0",
-  "description": "Teste de api do projeto de conclusão de curso",
-  "license": "ISC",
-  "author": "",
-  "type": "module",
-  "main": "servidor.js",
-  "scripts": {
-    "tests": "mocha \"tests/**/*.test.js\" --timeout 10000 --reporter mochawesome",
-    "test-rest-external": "mocha \"tests/rest/external/**/*.test.js\" --timeout 10000 --reporter mochawesome",
-    "test-rest-controller": "mocha \"tests/rest/controller/**/*.test.js\" --timeout 10000 --reporter mochawesome",
-    "test-graphql-external": "mocha \"tests/graphql/external/**/*.test.js\" --timeout 10000 --reporter mochawesome",
-    "test-graphql-controller": "mocha \"tests/graphql/controller/**/*.test.js\" --timeout 10000 --reporter mochawesome",
-    "start-api": "node --watch src/server.js"
-  },
-  "imports": {
-    "#controllers/*": "./src/controllers/*",
-    "#services/*": "./src/services/*",
-    "#models/*": "./src/models/*",
-    "#routes/*": "./src/routes/*",
-    "#middlewares/*": "./src/middlewares/*",
-    "#app/*": "./src/*"
-  },
-  "engines": {
-    "node": "22.14.0",
-    "npm": "10.9.2"
-  },
-  "dependencies": {
-    "@faker-js/faker": "^10.0.0",
-    "apollo-server-express": "^3.13.0",
-    "bcrypt": "6.0.0",
-    "cors": "2.8.5",
-    "express-validator": "7.2.1",
-    "graphql": "16.11.0",
-    "http-status-codes": "2.3.0",
-    "swagger-ui-express": "5.0.1"
-  },
-  "devDependencies": {
-    "chai": "6.0.1",
-    "chai-exclude": "3.0.1",
-    "dotenv": "^17.2.2",
-    "jsonwebtoken": "9.0.2",
-    "mocha": "11.7.2",
-    "mochawesome": "7.1.3",
-    "sinon": "21.0.0",
-    "supertest": "7.1.4"
-  }
+	"name": "api-katiana",
+	"version": "1.0.0",
+	"description": "Teste de api do projeto de conclusão de curso",
+	"license": "ISC",
+	"author": "",
+	"type": "module",
+	"main": "servidor.js",
+	"scripts": {
+		"tests": "mocha \"tests/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+		"test-rest-external": "mocha \"tests/rest/external/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+		"test-rest-controller": "mocha \"tests/rest/controller/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+		"test-graphql-external": "mocha \"tests/graphql/external/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+		"test-graphql-controller": "mocha \"tests/graphql/controller/**/*.test.js\" --timeout 10000 --reporter mochawesome",
+		"start-api": "node --watch src/server.js",
+		"k6:rest-load": "k6 run test/k6/rest/load-test.js",
+		"k6:rest-stress": "k6 run test/k6/rest/stress-test.js",
+		"k6:rest-spike": "k6 run test/k6/rest/spike-test.js",
+		"k6:all-rest": "npm run k6:rest-load && npm run k6:rest-stress && npm run k6:rest-spike",
+		"k6:rest-load-report": "k6 run --out json=test/k6/reports/json/rest-load.json test/k6/rest/load-test.js && node test/k6/scripts/generate-html-report.js test/k6/reports/json/rest-load.json",
+		"k6:rest-stress-report": "k6 run --out json=test/k6/reports/json/rest-stress.json test/k6/rest/stress-test.js && node test/k6/scripts/generate-html-report.js test/k6/reports/json/rest-stress.json",
+		"k6:rest-spike-report": "k6 run --out json=test/k6/reports/json/rest-spike.json test/k6/rest/spike-test.js && node test/k6/scripts/generate-html-report.js test/k6/reports/json/rest-spike.json"
+	},
+	"imports": {
+		"#controllers/*": "./src/controllers/*",
+		"#services/*": "./src/services/*",
+		"#models/*": "./src/models/*",
+		"#routes/*": "./src/routes/*",
+		"#middlewares/*": "./src/middlewares/*",
+		"#app/*": "./src/*"
+	},
+	"engines": {
+		"node": "22.14.0",
+		"npm": "10.9.2"
+	},
+	"dependencies": {
+		"@faker-js/faker": "^10.0.0",
+		"apollo-server-express": "^3.13.0",
+		"bcrypt": "6.0.0",
+		"cors": "2.8.5",
+		"express-validator": "^7.3.1",
+		"graphql": "16.11.0",
+		"http-status-codes": "2.3.0",
+		"swagger-ui-express": "5.0.1"
+	},
+	"devDependencies": {
+		"chai": "6.0.1",
+		"chai-exclude": "3.0.1",
+		"dotenv": "^17.2.2",
+		"jsonwebtoken": "9.0.2",
+		"mocha": "11.7.2",
+		"mochawesome": "7.1.3",
+		"sinon": "21.0.0",
+		"supertest": "7.1.4"
+	}
 }
